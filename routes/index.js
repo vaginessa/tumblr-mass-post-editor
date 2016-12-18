@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+/* eslint-disable new-cap */
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const router = require('express').Router();
+const ensureAuthenticated = require('../middleware/ensure-authenticated');
+
+// Route: /
+router.get('/',
+  ensureAuthenticated,
+  (req, res, _next) => {
+    const user = req.user._json.response.user;
+
+    res.render('index', { user });
+  }
+);
 
 module.exports = router;
