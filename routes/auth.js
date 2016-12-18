@@ -7,7 +7,7 @@ const passport = require('passport');
 router.get('/tumblr',
   passport.authenticate('tumblr'),
   (_req, res) => {
-    res.redirect('/posts');
+    res.redirect('/');
   }
 );
 
@@ -15,7 +15,7 @@ router.get('/tumblr',
 router.get('/tumblr/callback',
   passport.authenticate('tumblr', { failureRedirect: '/login' }),
   (_req, res) => {
-    res.redirect('/posts');
+    res.redirect('/');
   }
 );
 
