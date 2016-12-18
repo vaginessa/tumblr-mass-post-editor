@@ -1,2 +1,7 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<p>Hello, {{user.name}}!</p>
+
+<ul>
+  {{#each user.blogs as |blog|}}
+    <li>{{blog.name}} - {{blog.title}} - {{blog.url}}</li>
+  {{/each}}
+</ul>
