@@ -15,6 +15,7 @@
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
     "passport-tumblr": "^0.1.2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "tumblr.js": "^1.1.1"
   }
 }
