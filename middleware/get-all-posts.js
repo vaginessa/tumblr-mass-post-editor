@@ -3,9 +3,16 @@
 const tumblr = require('tumblr.js');
 const consumer = require('../helpers/consumer');
 let client = null;
-let offset = 0;
 
 function getAllPosts(req, res, next) {
+  const ownsBlog = req.user.user.blogs.some(blog => {
+    return blog.name === req.params.blogName;
+  });
+
+  if (!ownsBlog) {
+    return res.redirect('/');
+  }
+
   client = tumblr.createClient({
     consumer_key: consumer.key,
     consumer_secret: consumer.secret,
@@ -25,7 +32,7 @@ function getAllPosts(req, res, next) {
   });
 }
 
-function getPosts(blogName, options = { offset }, accumulator = {}) {
+function getPosts(blogName, options = { offset: 0 }, accumulator = {}) {
   return new Promise((resolve, reject) => {
     client.blogPosts(blogName, options, (err, data) => {
       if (err) {
