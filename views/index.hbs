@@ -2,6 +2,10 @@
 
 <ul>
   {{#each user.blogs as |blog|}}
-    <li>{{blog.name}} - {{blog.title}} - {{blog.url}}</li>
+    <li>
+      <a href="/blog/{{blog.name}}">
+        {{blog.name}} - {{blog.title}} - {{blog.url}}
+      </a>
+    </li>
   {{/each}}
 </ul>
