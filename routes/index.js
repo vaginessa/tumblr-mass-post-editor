@@ -7,7 +7,7 @@ const ensureAuthenticated = require('../middleware/ensure-authenticated');
 router.get('/',
   ensureAuthenticated,
   (req, res, _next) => {
-    const user = req.user._json.response.user;
+    const user = req.user.user;
 
     res.render('index', { user });
   }
