@@ -1,10 +1,13 @@
-<div>
-  {{blog.name}} - {{blog.title}}
-</div>
-<ul>
-  {{#each posts as |post|}}
-    <li>
-      {{post.id}} ({{post.type}}, {{post.state}}): {{post.title}}
-    </li>
-  {{/each}}
-</ul>
+<p>{{blog.name}} - {{blog.title}}</p>
+{{#if posts.length}}
+  <p>posts</p>
+  <ul>
+    {{#each posts as |post|}}
+      <li>
+        {{post.id}} ({{post.type}}, {{post.state}}): {{post.title}}
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>no posts</p>
+{{/if}}
