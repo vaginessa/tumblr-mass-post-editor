@@ -14,10 +14,10 @@ router.get('/:blogName',
   ensureAuthenticated,
   getAllPosts,
   (_req, res) => {
-    res.render('blog', {
-      blog: res.locals.blog.blog,
-      posts: res.locals.blog.posts
-    });
+    const blog = res.locals.blog.blog;
+    const posts = res.locals.blog.posts;
+
+    res.render('blog', { blog, posts });
   }
 );
 
