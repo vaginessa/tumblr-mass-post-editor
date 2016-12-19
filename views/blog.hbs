@@ -1,10 +1,24 @@
 <p>{{blog.name}} - {{blog.title}}</p>
+<div>
+  <p>mass set post state</p>
+  <form name="state" action="/blog/{{blog.name}}/edit" method="get">
+    <input type="radio" name="state" value="published" checked>Published</input>
+    <input type="radio" name="state" value="private">Private</input>
+    <input value="OK" type="submit"/>
+  </form>
+</div>
 {{#if posts.length}}
-  <p>posts</p>
+  <p>{{posts.length}} posts</p>
   <ul>
     {{#each posts as |post|}}
       <li>
-        {{post.id}} ({{post.type}}, {{post.state}}): {{post.title}}
+        <ul>
+          <li>id: {{post.id}}</li>
+          <li>type: {{post.type}}</li>
+          <li>state: {{post.state}}</li>
+          <li>title: {{post.title}}</li>
+          <li>tags: {{post.tags}}</li>
+        </ul>
       </li>
     {{/each}}
   </ul>
