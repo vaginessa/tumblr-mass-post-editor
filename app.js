@@ -1,24 +1,25 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+const express = require('express');
+const path = require('path');
+// const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
-var index = require('./routes/index');
-var auth = require('./routes/auth');
-var blog = require('./routes/blog');
+const index = require('./routes/index');
+const auth = require('./routes/auth');
+const blog = require('./routes/blog');
+const edit = require('./routes/edit');
 
 // Passport
-var passport = require('passport');
-var tumblrStrategy = require('./helpers/tumblr-strategy');
+const passport = require('passport');
+const tumblrStrategy = require('./helpers/tumblr-strategy');
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((object, done) => done(null, object));
 passport.use(tumblrStrategy);
 
-var app = express();
+const app = express();
 
 // Set up express with Passport and session middleware.
 app.use(session({
@@ -26,6 +27,7 @@ app.use(session({
   saveUninitialized: true,
   secret: 'test'
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -34,7 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,16 +46,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/blog', blog);
+app.use('/edit', edit);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((_req, _res, next) => {
+  const err = new Error('Not Found');
+
   err.status = 404;
+
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, _next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
