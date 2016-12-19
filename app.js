@@ -9,7 +9,6 @@ const session = require('express-session');
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const blog = require('./routes/blog');
-const edit = require('./routes/edit');
 
 // Passport
 const passport = require('passport');
@@ -46,7 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/blog', blog);
-app.use('/edit', edit);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
